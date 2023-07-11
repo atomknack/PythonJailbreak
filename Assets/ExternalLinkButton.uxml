@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-direction: row; right: 0; top: 0; justify-content: flex-end;">
+        <ui:Label text="You can help by becoming a " display-tooltip-when-elided="true" />
+        <ui:Button text="Patron" display-tooltip-when-elided="true" name="Patrion" />
+        <ui:Label text=" or drop a tip through" display-tooltip-when-elided="true" />
+        <ui:Button text="Ko-fi" display-tooltip-when-elided="true" name="Ko-fi" />
+        <ui:Label text="." display-tooltip-when-elided="true" />
+    </ui:VisualElement>
+</ui:UXML>

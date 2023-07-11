@@ -1,0 +1,8 @@
+from:
+https://www.nuget.org/packages/pythonnet/
+version:
+3.0.0-preview2022-04-11
+license:
+MIT
+source repository:
+https://github.com/pythonnet/pythonnet

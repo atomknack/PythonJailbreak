@@ -1,0 +1,6 @@
+from:
+https://www.nuget.org/packages/System.Security.Permissions/7.0.0-preview.4.22229.4
+license:
+MIT
+source repository:
+https://github.com/dotnet/runtime 
