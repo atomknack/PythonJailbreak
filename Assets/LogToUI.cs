@@ -12,23 +12,24 @@ public class LogToUI : MonoBehaviour
     [SerializeField]
     private int maxLines = 8;
     private Queue<string> queue = new Queue<string>();
-    private string _currentText = "";
 
     [SerializeField]
     private string textElementName;
     private Label _textElement;
 
-    public string GetText() => _currentText;
+    private StringWriter consoleOut2;
 
-    //StreamReader consoleReader;
-    StringWriter consoleOut2;
-    //TextWriter consoleOut3;
     public void UpdateText(string newText)
     {
-        _currentText = newText;
-        if(_textElement is not null)
-            _textElement.text = _currentText;
+            _textElement.text = newText;
     }
+
+    public void OnAfterPythonScriptRun()
+    {
+        UpdateText(consoleOut2.ToString());
+        consoleOut2.GetStringBuilder().Clear();
+    }
+
     void OnEnable()
     {
         VisualElement _rootUI = GetComponent<UIDocument>().rootVisualElement;
@@ -41,6 +42,7 @@ public class LogToUI : MonoBehaviour
         System.Console.SetOut(consoleOut2);
 
         //consoleOut3 = System.Console.Out;
+        PythonRunner.PythonRun.AfterPythonScriptRun += OnAfterPythonScriptRun;
     }
     void Start()
     {
@@ -50,6 +52,7 @@ public class LogToUI : MonoBehaviour
     void OnDisable()
     {
         Application.logMessageReceivedThreaded -= HandleLog;
+        PythonRunner.PythonRun.AfterPythonScriptRun -= OnAfterPythonScriptRun;
     }
 
     void HandleLog(string logString, string stackTrace, LogType type)

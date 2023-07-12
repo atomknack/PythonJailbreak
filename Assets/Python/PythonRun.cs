@@ -9,10 +9,11 @@ namespace PythonRunner
 {
 
 
-public class PythonRun: MonoBehaviour
-{
-    private static StringWriter s_stdout;
-    public static StringWriter Stdout
+    public class PythonRun : MonoBehaviour
+    {
+        public static event Action AfterPythonScriptRun;
+        private static StringWriter s_stdout;
+        public static StringWriter Stdout
         {
             set
             {
@@ -21,7 +22,7 @@ public class PythonRun: MonoBehaviour
             }
         }
 
-    public readonly static Writer writer = new Writer();
+        public readonly static Writer writer = new Writer();
         public class Writer
         {
             public static void write(string s)
@@ -42,49 +43,50 @@ sys.stdout = PythonRunner.PythonRun.writer
             }
         }
 
-    public static void RunScript(string script)
-    {
-        using (Py.GIL())
+        public static void RunScript(string script)
         {
-                
-            try
+            using (Py.GIL())
             {
-                
-                using (var scope = Py.CreateScope())
+
+                try
                 {
-//                        scope.Exec($@"import os
-//print(os.listdir())
-//print(""example"")");
-                    var scriptCompiled = PythonEngine.Compile(script);
-                    scope.Execute(scriptCompiled);
+
+                    using (var scope = Py.CreateScope())
+                    {
+                        //                        scope.Exec($@"import os
+                        //print(os.listdir())
+                        //print(""example"")");
+                        var scriptCompiled = PythonEngine.Compile(script);
+                        scope.Execute(scriptCompiled);
+                    }
+
+                    AfterPythonScriptRun?.Invoke();
                 }
-                
+                catch (Exception e)
+                {
+                    print(e);
+                    print(e.StackTrace);
+                }
+
             }
-            catch (Exception e)
-            {
-                print(e);
-                print(e.StackTrace);
-            }
-                
         }
-    }
 
-    void OnEnable()
-    {
-        Runtime.PythonDLL = Application.dataPath + "/StreamingAssets/python-3.8.8-embed-amd64/python38.dll";
-        PythonEngine.Initialize();// mode: ShutdownMode.Reload);
-
-
-    }
-
-    public void OnApplicationQuit()
-    {
-        if (PythonEngine.IsInitialized)
+        void OnEnable()
         {
-            Debug.Log("ending python");
-            PythonEngine.Shutdown();// ShutdownMode.Reload);
+            Runtime.PythonDLL = Application.dataPath + "/StreamingAssets/python-3.8.8-embed-amd64/python38.dll";
+            PythonEngine.Initialize();// mode: ShutdownMode.Reload);
+
+
+        }
+
+        public void OnApplicationQuit()
+        {
+            if (PythonEngine.IsInitialized)
+            {
+                Debug.Log("ending python");
+                PythonEngine.Shutdown();// ShutdownMode.Reload);
+            }
         }
     }
-}
 
 }
