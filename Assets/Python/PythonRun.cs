@@ -73,7 +73,7 @@ sys.stdout = PythonRunner.PythonRun.writer
 
         void OnEnable()
         {
-            Runtime.PythonDLL = Application.dataPath + "/StreamingAssets/python-3.8.8-embed-amd64/python38.dll";
+            Runtime.PythonDLL = Application.dataPath + "/StreamingAssets/python-3.11.4-embed-amd64/python311.dll";
             PythonEngine.Initialize();// mode: ShutdownMode.Reload);
 
 
