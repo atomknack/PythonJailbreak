@@ -5,6 +5,9 @@ using UnityEngine;
 namespace InGame
 {
 
+    // for use with PythonNet 
+    // https://github.com/pythonnet/pythonnet/wiki
+    // https://github.com/pythonnet/pythonnet/wiki/Threading
     [Obsolete("Not tested, not tested at all")]
     public class SecondThreadCommandBridgeToMainThread : MonoBehaviour
     {
