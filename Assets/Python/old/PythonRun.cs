@@ -5,7 +5,7 @@ using Python.Runtime;
 using System;
 using System.IO;
 
-namespace UKnack.PythonRunner
+namespace OldPythonRunner
 {
 
 
@@ -35,8 +35,8 @@ namespace UKnack.PythonRunner
                 {
                     PythonEngine.Exec(@"
 import sys
-import PythonRunner
-sys.stdout = PythonRunner.PythonRun.writer
+import OldPythonRunner
+sys.stdout = OldPythonRunner.PythonRun.writer
                     ");
                 }
 

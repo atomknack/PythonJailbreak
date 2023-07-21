@@ -42,17 +42,17 @@ public class LogToUI : MonoBehaviour
         System.Console.SetOut(consoleOut2);
 
         //consoleOut3 = System.Console.Out;
-        UKnack.PythonRunner.PythonRun.AfterPythonScriptRun += OnAfterPythonScriptRun;
+        OldPythonRunner.PythonRun.AfterPythonScriptRun += OnAfterPythonScriptRun;
     }
     void Start()
     {
-        UKnack.PythonRunner.PythonRun.Stdout = consoleOut2;
+        OldPythonRunner.PythonRun.Stdout = consoleOut2;
     }
 
     void OnDisable()
     {
         Application.logMessageReceivedThreaded -= HandleLog;
-        UKnack.PythonRunner.PythonRun.AfterPythonScriptRun -= OnAfterPythonScriptRun;
+        OldPythonRunner.PythonRun.AfterPythonScriptRun -= OnAfterPythonScriptRun;
     }
 
     void HandleLog(string logString, string stackTrace, LogType type)
