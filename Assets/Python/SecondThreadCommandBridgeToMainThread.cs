@@ -1,8 +1,9 @@
+using Python.Runtime;
 using System;
 using System.Threading;
 using UnityEngine;
 
-namespace InGame
+namespace UKnack.PythonRunner
 {
 
     // for use with PythonNet 
@@ -62,6 +63,8 @@ namespace InGame
             if (_command != null)
                 throw new System.Exception("Somehow there is already another non null command action, while trying to run newCommand");
 
+            var state = PythonEngine.BeginAllowThreads();
+
             System.Threading.Thread.MemoryBarrier();
             _command = newCommand;
             System.Threading.Thread.MemoryBarrier();
@@ -81,6 +84,8 @@ namespace InGame
                 if (Thread.Yield() == false)
                     Thread.Sleep(ThreadSleepTimeForHaveCommand);
             }
+
+            PythonEngine.EndAllowThreads(state);
         }
 
         private void FixedUpdate()

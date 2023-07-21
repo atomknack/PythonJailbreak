@@ -5,7 +5,7 @@ using Python.Runtime;
 using System;
 using System.IO;
 
-namespace PythonRunner
+namespace UKnack.PythonRunner
 {
 
 

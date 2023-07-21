@@ -22,6 +22,6 @@ public class PythonNoJailRunner : MonoBehaviour
     {
         //PythonRunner.RunString(pythonScriptSource.text);
         //PySideExample.Run(pythonScriptSource.text);
-        PythonRunner.PythonRun.RunScript(pythonScriptSource.text);
+        UKnack.PythonRunner.PythonRun.RunScript(pythonScriptSource.text);
     }
 }
