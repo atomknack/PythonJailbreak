@@ -55,6 +55,7 @@ namespace UKnack.PythonNet
         //don't forget to cancelTokenSource.Dispose(); after done with token
         public void RunInFixedUpdateAndReturnAfterCompletion(System.Action newCommand, CancellationToken token)
         {
+
             if (newCommand == null)
                 throw new System.ArgumentNullException("newCommand action should not be null");
 
@@ -67,7 +68,7 @@ namespace UKnack.PythonNet
             if (_command != null)
                 throw new System.Exception("Somehow there is already another non null command action, while trying to run newCommand");
 
-            var state = PythonEngine.BeginAllowThreads();
+            //var state = PythonEngine.BeginAllowThreads();
 
             System.Threading.Thread.MemoryBarrier();
             _command = newCommand;
@@ -77,7 +78,8 @@ namespace UKnack.PythonNet
 
             CheckCommandCycle(token);
 
-            PythonEngine.EndAllowThreads(state);
+            //PythonEngine.EndAllowThreads(state);
+
 
             void CheckCommandCycle(CancellationToken token)
             {
