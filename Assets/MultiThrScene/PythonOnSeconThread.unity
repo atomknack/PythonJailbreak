@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 1951688537}
   - component: {fileID: 1951688536}
   - component: {fileID: 1951688538}
+  - component: {fileID: 1951688539}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -341,7 +342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: e0d5f27f29ced624b85e551abab971bc, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 3a80b052b1ab92641b44e80ad93fe6cc, type: 3}
   m_SortingOrder: 0
 --- !u!4 &1951688537
 Transform:
@@ -372,4 +373,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layoutProvider: {fileID: 0}
   _logEvent: {fileID: 11400000, guid: 3f5fc7283d9ac204b8374903019fd464, type: 2}
-  _logTextElementId: 
+  _logTextElementId: Log
+  _logBuilderReverseMessages: 1
+  _logMaxTextMessages: 8
+--- !u!114 &1951688539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951688535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7ec8847d43a2a84fb43cfd5123dfd81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _document: {fileID: 0}
+  _buttonName: Run
+  _textFieldId: Code
+  _unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 1c8c58c0d15fbdf408e465155a4a0504, type: 2}
+        m_TargetAssemblyTypeName: UKnack.Concrete.Events.SOPublisher_Concrete_string,
+          UKnackBasisConcrete
+        m_MethodName: Publish
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
