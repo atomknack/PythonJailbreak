@@ -29,6 +29,11 @@ namespace UKnack.PythonNet
             /// <param name="s">string message that was written to stdout and is hijacked</param>
             public static void write(string s)
             {
+                //Debug.Log($"{s} {s==null} {System.Threading.Thread.CurrentThread.ManagedThreadId}");
+                //return;
+
+                System.Threading.Thread.Sleep(1000);
+
                 SecondThreadCommandBridgeToMainThread.Singleton.RunInFixedUpdateAndReturnAfterCompletion
                     (()=> { 
                         _singleton._onWrite.Invoke(s); 
