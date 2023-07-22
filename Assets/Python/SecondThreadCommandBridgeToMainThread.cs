@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-namespace UKnack.PythonRunner
+namespace UKnack.PythonNet
 {
 
     // for use with PythonNet 
@@ -49,7 +49,11 @@ namespace UKnack.PythonRunner
             RunCommandIfAny();
         }
 
-        public void RunInFixedUpdateAndReturnAfterCompletion(System.Action newCommand)
+        //CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+        //CancellationToken token = cancelTokenSource.Token;
+        //to cancel cancelTokenSource.Cancel();
+        //don't forget to cancelTokenSource.Dispose(); after done with token
+        public void RunInFixedUpdateAndReturnAfterCompletion(System.Action newCommand, CancellationToken token)
         {
             if (newCommand == null)
                 throw new System.ArgumentNullException("newCommand action should not be null");
@@ -71,21 +75,26 @@ namespace UKnack.PythonRunner
             _runningCommandForMainThread = true;
             System.Threading.Thread.MemoryBarrier();
 
-            while (_runningCommandForMainThread) // a, cyclic check
-            {
-                if (_singleton == null)
-                {
-                    System.Threading.Thread.MemoryBarrier();
-
-                    if (_runningCommandForMainThread) //b, double check, because threads
-                        throw new System.Exception("Cannot run command because there is no runner singleton");
-                }
-
-                if (Thread.Yield() == false)
-                    Thread.Sleep(ThreadSleepTimeForHaveCommand);
-            }
+            CheckCommandCycle(token);
 
             PythonEngine.EndAllowThreads(state);
+
+            void CheckCommandCycle(CancellationToken token)
+            {
+                while (_runningCommandForMainThread) // a, cyclic check
+                {
+                    if (token.IsCancellationRequested)
+                        return;
+                    if (_singleton == null)
+                    {
+                        System.Threading.Thread.MemoryBarrier();
+                        if (_runningCommandForMainThread) //b, double check, because threads
+                            throw new System.Exception("Cannot run command because there is no runner singleton");
+                    }
+                    if (Thread.Yield() == false)
+                        Thread.Sleep(ThreadSleepTimeForHaveCommand);
+                }
+            }
         }
 
         private void FixedUpdate()

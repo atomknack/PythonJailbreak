@@ -6,7 +6,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace UKnack.PythonRunner
+namespace UKnack.PythonNet
 {
     [Obsolete("not tested")]
     public class StdOutHijacker : MonoBehaviour
@@ -24,7 +24,7 @@ namespace UKnack.PythonRunner
         public class Writer
         {
             /// <summary>
-            /// should be called only from python code
+            /// should be called only from python code that being run by PythonRunner
             /// </summary>
             /// <param name="s">string message that was written to stdout and is hijacked</param>
             public static void write(string s)
@@ -33,7 +33,7 @@ namespace UKnack.PythonRunner
                     (()=> { 
                         _singleton._onWrite.Invoke(s); 
                         StaticEvent?.Invoke(s);
-                    });
+                    }, PythonRunner.Instance.CurrentScriptRunCancelationToken);
             }
         }
 
@@ -52,8 +52,8 @@ namespace UKnack.PythonRunner
             {
                 PythonEngine.Exec(@"
 import sys
-import PythonRunner
-sys.stdout = UKnack.PythonRunner.StdOutHijacker.writer
+import UKnack.PythonNet
+sys.stdout = UKnack.PythonNet.StdOutHijacker.writer
                     ");
             }
 
