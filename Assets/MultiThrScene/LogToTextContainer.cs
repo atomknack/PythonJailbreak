@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UKnack.Attributes;
 using UKnack.Events;
 using UKnack.UI;
@@ -27,17 +28,24 @@ namespace InGame
         public void OnEventNotification(string t) => 
             RecievedNewTextMessage(t);
 
+        [SerializeField]
+        private bool _logBuilderReverseMessages = false;
+        [SerializeField]
+        private int _logMaxTextMessages = 8;
 
         private Queue<string> _logBuilder = new();
-        private int maxLogTextMessages = 8;
+     
 
         private void RecievedNewTextMessage(string text)
         {
-            if (_logBuilder.Count > maxLogTextMessages) 
+            if (_logBuilder.Count > _logMaxTextMessages) 
                 _logBuilder.Dequeue();
             _logBuilder.Enqueue(text);
 
-            _textContainer.TryAssignTextWithoutNotification(string.Join("\n", _logBuilder));
+            _textContainer.TryAssignTextWithoutNotification(
+                _logBuilderReverseMessages ? 
+                string.Join("\n", _logBuilder.Reverse()) : 
+                string.Join("\n", _logBuilder));
         }
 
         private void OnEnable()
