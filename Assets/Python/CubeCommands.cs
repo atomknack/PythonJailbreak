@@ -70,29 +70,11 @@ namespace UKnack.PythonNet
                 throw new ArgumentNullException(nameof(_localReference));
         }
 
+        // This method could be run on second thread
         private void AddToScope(PyModule scope)
         {
             PyObject cube = _cube.ToPython();
             scope.Set("cube", cube);
         }
-
-        /*
-        public static void ApplyCommands()
-        {
-            using (Py.GIL())
-            {
-                // alternative way to do https://pythonnet.github.io/pythonnet/dotnet.html
-                // PyObject cube = UKnack.PythonNet.CubeCommands.CommandsForPython.ToPython();
-
-
-                PythonEngine.Exec(@"
-import sys
-import UKnack.PythonNet
-cube = UKnack.PythonNet.CubeCommands.CommandsForPython
-                    ");
-            }
-
-        }
-        */
     }
 }
