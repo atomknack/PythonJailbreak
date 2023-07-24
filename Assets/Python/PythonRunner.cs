@@ -1,4 +1,5 @@
 using Python.Runtime;
+using System;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +10,8 @@ namespace UKnack.PythonNet
     {
         [SerializeField]
         private UnityEvent _afterInit;
+
+        public event Action<PyModule> NewScopeTorRunScript;
         public static PythonRunner Instance => 
             _instance;
         public CancellationToken CurrentScriptRunCancelationToken =>
@@ -56,12 +59,14 @@ namespace UKnack.PythonNet
 
         public static void RunScriptWithScope(string pythonScript, System.Action onSuccess = null)
         {
+            
             using (Py.GIL())
             {
                 try
                 {
                     using (var scope = Py.CreateScope())
                     {
+                        Instance.NewScopeTorRunScript?.Invoke(scope);
                         //                        scope.Exec($@"import os
                         //print(os.listdir())
                         //print(""example"")");

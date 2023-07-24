@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 500px;">
         <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 400px;">
-            <ui:TextField picking-mode="Ignore" value="print(1)&#10;print(4)&#10;print(&quot;gsdgfsdfhdf  hfsd&quot;)" multiline="true" name="Code" style="height: 300px;" />
+            <ui:TextField picking-mode="Ignore" value="import UnityEngine&#10;&#10;print(dir())&#10;cube.move(UnityEngine.Vector3(2,3,4))&#10;print(&quot;next raw numbers&quot;)&#10;cube.move(-1,-1,-1)&#10;print(&quot;cube moved by 1,2,3&quot;)" multiline="true" name="Code" style="height: 300px;" />
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
             <ui:Label tabindex="-1" text="Log&#10;LogLIne2&#10;LogLine3&#10;" display-tooltip-when-elided="true" name="Log" style="height: 200px;" />

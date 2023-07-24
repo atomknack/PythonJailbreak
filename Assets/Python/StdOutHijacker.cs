@@ -31,8 +31,12 @@ namespace UKnack.PythonNet
             {
                 //Debug.Log($"{s} {s==null} {System.Threading.Thread.CurrentThread.ManagedThreadId}");
                 //return;
-
-                System.Threading.Thread.Sleep(1000);
+                //////
+                int sleep = 500;
+                Debug.Log($"{nameof(StdOutHijacker)}.Writer.write - python thread sleep {sleep}");
+                System.Threading.Thread.Sleep(sleep);
+                //////
+                
 
                 SecondThreadCommandBridgeToMainThread.Singleton.RunInFixedUpdateAndReturnAfterCompletion
                     (()=> { 

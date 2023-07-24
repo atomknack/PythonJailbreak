@@ -56,6 +56,7 @@ namespace InGame
             if (_textContainer == null)
                 throw new System.Exception($"No any text container found with id:{_logTextElementId}");
             _logEvent.Subscribe(this);
+            Debug.Log("OnEnable finished");
         }
 
         private void OnDisable()
@@ -63,6 +64,7 @@ namespace InGame
             _textContainer = null;
             ValidateFields();
             _logEvent.UnsubscribeNullSafe(this);
+            Debug.Log("OnDisable finished");
         }
         private void ValidateFields()
         {
